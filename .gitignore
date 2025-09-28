@@ -1,0 +1,32 @@
+# General
+*.log
+*.tmp
+*.swp
+
+# ESP-IDF
+sdkconfig.old
+build/
+*.bin
+*.elf
+
+# STM32 (CubeIDE)
+*.launch
+*.o
+*.d
+*.elf
+*.map
+*.list
+Debug/
+Release/
+*.settings/
+*.project
+*.cproject
+
+# Web (Node/React)
+node_modules/
+dist/
+build/
+
+# OS
+.DS_Store
+Thumbs.db

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ESP32 DS3231 Time Dashboard</title>
+  <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+  <h2>📡 ESP32 DS3231 Dashboard</h2>
+  <div id="status" class="status disconnected">🔴 Disconnected</div>
+
+  <div class="card">
+    <div class="time" id="time">--:--:--</div>
+    <div class="date" id="date">--/--/----</div>
+  </div>
+
+  <div class="card">
+    <div class="temp">🌡️ <span id="temp">--.-</span> °C</div>
+  </div>
+
+  <div class="card">
+    <h3>💡 LED Control</h3>
+    <button class="btn btn-on" onclick="sendLED('ON')">Turn ON</button>
+    <button class="btn btn-off" onclick="sendLED('OFF')">Turn OFF</button>
+    <div id="led-icon" style="font-size:2em; margin-top:10px; color:gray;">💡 OFF</div>
+  </div>
+
+  <script src="index.js">
+  </script>
+</body>
+</html>

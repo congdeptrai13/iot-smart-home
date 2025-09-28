@@ -1,0 +1,41 @@
+/*
+ * DS3231.c
+ *
+ *  Created on: Sep 6, 2025
+ *      Author: DELL-M
+ */
+#include "DS3231.h"
+
+uint8_t BCD2Decimal(uint8_t BCD){
+	return (BCD >> 4) * 10 + (BCD & 0x0F);
+}
+
+uint8_t Decimal2BCD(uint8_t Decimal){
+	return ((Decimal / 10) << 4) | (Decimal % 10);
+}
+
+void DS3231_Init(DateTime_t *dt){
+	dt->second = 0;
+	dt->min = 0;
+	dt->hour = 0;
+}
+
+void DS3231_Read(DateTime_t *dt){
+	uint8_t buff[3];
+	uint8_t addr = 0x00;
+	HAL_I2C_Master_Transmit(&hi2c1, BASE_ADDR, &addr, 1, 100);
+	HAL_I2C_Master_Receive(&hi2c1, BASE_ADDR, buff, sizeof(buff), 100);
+	dt->second = BCD2Decimal(buff[0]);
+	dt->min = BCD2Decimal(buff[1]);
+	dt->hour = BCD2Decimal(buff[2]);
+}
+
+void DS3231_Write(DateTime_t *dt){
+	uint8_t buff[4];
+	buff[0] = 0x00;
+	buff[1] = Decimal2BCD(dt->second);
+	buff[2] = Decimal2BCD(dt->min);
+	buff[3] = Decimal2BCD(dt->hour);
+	HAL_I2C_Master_Transmit(&hi2c1, BASE_ADDR, buff, sizeof(buff), 100);
+}
+

@@ -1,0 +1,38 @@
+/*
+ * DS3231.h
+ *
+ *  Created on: Sep 6, 2025
+ *      Author: DELL-M
+ */
+
+#ifndef INC_DS3231_H_
+#define INC_DS3231_H_
+
+#include "stdint.h"
+#include "stm32f4xx_hal.h"
+
+
+#define BASE_ADDR (0x68 << 1)
+
+typedef struct{
+	uint8_t second;
+	uint8_t min;
+	uint8_t hour;
+	uint8_t day;
+	uint8_t date;
+	uint8_t month;
+	uint8_t year;
+	float temp;
+}DateTime_t;
+
+extern I2C_HandleTypeDef hi2c1;
+
+
+void DS3231_Init(DateTime_t *dt);
+void DS3231_ReadTime(DateTime_t *dt);
+void DS3231_ReadTemp(DateTime_t *dt);
+
+void DS3231_Write(DateTime_t *dt);
+
+
+#endif /* INC_DS3231_H_ */
